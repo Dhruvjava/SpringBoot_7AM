@@ -1,0 +1,70 @@
+##spring:
+##    profiles:
+##        active: "dev"
+#---
+#my:
+#    app:
+#        data:
+#        - A
+#        - B
+#        - C
+#        driver: SQL-Server
+#        map:
+#            Add: Agra
+#            name: Hemant
+#        password: root
+#        st:
+#            add: Agra
+#            name: Hemant
+#            sal: 35K
+#        url: jdbc:sqlserver://xxx
+#        username: root dev
+#spring:
+#    config:
+#        activate:
+#            on-profile: dev
+#
+#---
+#my:
+#    app:
+#        data:
+#            - 1
+#            - 2
+#            - 3
+#        driver: Mysql
+#        map:
+#            Add: Agra
+#            name: Anjali
+#        password: root
+#        st:
+#            add: Agra
+#            name: Anjali
+#            sal: 35K
+#        url: jdbc:mysq://xxx
+#        username: root
+#spring:
+#    config:
+#        activate:
+#            on-profile: qa
+#---
+my:
+    app:
+        data:
+            - a
+            - b
+            - c
+        driver: Postgres
+        map:
+            Add: Agra
+            name: Aditi
+        password: root
+        st:
+            add: Agra
+            name: Aditi
+            sal: 35K
+        url: jdbc:postgres://xxx
+        username: root
+#spring:
+#    config:
+#        activate:
+#            on-profile: prod

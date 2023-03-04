@@ -1,0 +1,15 @@
+my:
+  app:
+    driver: Mysql
+    url: jdbc:mysql://kdhfkdsjfk
+    username: root
+    password: root
+
+    set:
+      - A
+      - B
+      - C
+    map:
+      name: John
+      add: USA
+

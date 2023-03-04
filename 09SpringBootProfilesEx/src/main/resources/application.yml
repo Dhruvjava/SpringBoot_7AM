@@ -1,0 +1,18 @@
+my:
+  app:
+    driver: Mysql
+    url: jdbc
+    user: root
+    pwd: pwd
+
+---
+my:
+  app:
+    driver: Oracle
+    url: jdbc:Oracle
+    user: root
+    pwd: pwd
+spring:
+  config:
+    activate:
+      on-profile: qa

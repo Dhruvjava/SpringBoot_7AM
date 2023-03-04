@@ -1,0 +1,13 @@
+
+p	java:S106"9Replace this use of System.out or System.err by a logger.(÷¾íðþÿÿÿÿ8þáî”á0H—RMAJORZ
+CODE_SMELL
+s	java:S125"<This block of commented-out lines of code should be removed.(×™Äíúÿÿÿÿ8ïÿ•á0HœRMAJORZ
+CODE_SMELL
+n	java:S125"<This block of commented-out lines of code should be removed.(æõ¹»8ïÿ•á0HRMAJORZ
+CODE_SMELL
+‹
+java:S1128"SRemove this unused import 'org.springframework.beans.factory.annotation.Autowired'.(¡ž¸Îùÿÿÿÿ8ïÿ•á0HžRMINORZ
+CODE_SMELL
+^
+java:S1128",Remove this unused import 'com.cb.Database'.(¶ÿÏd8ïÿ•á0H RMINORZ
+CODE_SMELL

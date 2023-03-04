@@ -1,0 +1,40 @@
+#my:
+#    app:
+#        driver: Mysql
+#        pwd: root
+#        url: jdbc:MySQl://xyzmnmn
+#        user: root
+#
+#---
+#spring:
+#    config:
+#        activate:
+#            on-profile: qa
+#my:
+#    app:
+#        driver: sql-Server
+#        pwd: root
+#        url: jdbc:sqlserver://xyzmnmn
+#        user: sqlserver
+#---
+#spring:
+#    config:
+#        activate:
+#            on-profile: uat
+my:
+    app:
+        driver: MongoDB
+        pwd: root
+        url: jdbc:mongo://xyzmnmn
+        user: mongo
+#---
+#spring:
+#    config:
+#        activate:
+#            on-profile: prod
+#my:
+#    app:
+#        driver: Postgresql
+#        pwd: root
+#        url: jdbc:postgresql://xyzmnmn
+#        user: postgres

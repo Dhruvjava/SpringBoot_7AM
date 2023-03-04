@@ -1,0 +1,5 @@
+package com.cb.runner;
+
+public class EmailRunner {
+
+}
