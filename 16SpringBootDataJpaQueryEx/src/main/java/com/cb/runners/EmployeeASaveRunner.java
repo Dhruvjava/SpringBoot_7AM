@@ -30,23 +30,32 @@ public class EmployeeASaveRunner implements CommandLineRunner {
                         new Employee(null, "Manikanta", 106200D, "SR. Tester"),
                         new Employee(null, "Pawan", 126200D, "DevOPs Eng."),
                         new Employee(null, "Raj Sekhar", 106200D, "SR. DEV"),
-                        new Employee(null, "Swammy", 13200D, "Manager")));
+                        new Employee(null, "Swammy", 132000D, "Manager")));
         System.out.println("---- Employee Saved !!! ----");
 
-        System.out.println("---- fetch all employee NAme records ----");
-        repo.getAllEmployeesName().forEach(System.out::println);
+//        System.out.println("---- fetch all employee NAme records ----");
+//        repo.getAllEmployeesName().forEach(System.out::println);
+//
+//        System.out.println("---- fetch Employee All Cols Recprds ----");
+//
+//        repo.getAllEmployees().forEach(System.out::println);
+//
+//        System.out.println("---- get Multiple col Records ----");
+//
+//        repo.getMultipleFields().stream()
+//                        .map(obj -> "Name :" + obj[0] + " Salary :" + obj[1] + " Dept :" + obj[2])
+//                        .forEach(System.out::println);
+//
+//        System.out.println("---- get One Row Object Based on empId ----");
+//        System.out.println(repo.getOneName(1).orElse("No Data Present !!"));
 
-        System.out.println("---- fetch Employee All Cols Recprds ----");
+        repo.getCoundByDept().stream().map(obj -> "Dept_Name : "+obj[0]+" count : "+obj[1]).forEach(System.out::println);
 
-        repo.getAllEmployees().forEach(System.out::println);
+        System.out.println(repo.getMinSal());
 
-        System.out.println("---- get Multiple col Records ----");
+        System.out.println(repo.getMaxSal());
 
-        repo.getMultipleFields().stream()
-                        .map(obj -> "Name :" + obj[0] + " Salary :" + obj[1] + " Dept :" + obj[2])
-                        .forEach(System.out::println);
+        System.out.println(repo.getAvgSal());
 
-        System.out.println("---- get One Row Object Based on empId ----");
-        System.out.println(repo.getOneName(1).orElse("No Data Present !!"));
     }
 }

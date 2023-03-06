@@ -26,6 +26,17 @@ public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
     List<Object[]> getMultipleFields();
 
 //    @Query("SELECT e.empName FROM Employee e WHERE e.empId=:id")
-    @Query("SELECT e.empName FROM Employee e WHERE e.empId= ?0")
-    Optional<String> getOneName(/*@Param("id")*/ Integer id);
+//    @Query("SELECT e.empName FROM Employee e WHERE e.empId= ?0")
+//    Optional<String> getOneName(/*@Param("id")*/ Integer id);
+
+    @Query("SELECT e.empDept, COUNT(e.empDept) FROM Employee e GROUP BY e.empDept")
+    List<Object[]> getCoundByDept();
+
+    @Query("SELECT MIN(e.empSal) FROM Employee e")
+    Double getMinSal();
+    @Query("SELECT MAX(e.empSal) FROM Employee e")
+    Double getMaxSal();
+
+    @Query("SELECT AVG(e.empSal) FROM Employee e")
+    Double getAvgSal();
 }

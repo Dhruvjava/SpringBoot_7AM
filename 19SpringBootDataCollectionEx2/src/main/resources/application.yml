@@ -1,0 +1,13 @@
+
+# Database Config
+spring:
+    datasource:
+        password: root
+        url: jdbc:mysql://localhost:3306/employee
+        username: root
+# Jpa/ORM Config
+    jpa:
+        database-platform: org.hibernate.dialect.MySQLDialect
+        hibernate:
+            ddl-auto: create
+        show-sql: true
