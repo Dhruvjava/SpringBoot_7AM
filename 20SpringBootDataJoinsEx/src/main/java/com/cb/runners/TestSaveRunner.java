@@ -31,5 +31,7 @@ public class TestSaveRunner implements CommandLineRunner {
 
         repo.saveAll(List.of(e1,e2,e3));
         System.out.println("Data Saved !!!");
+
+        repo.findAll().forEach(System.out::println);
     }
 }

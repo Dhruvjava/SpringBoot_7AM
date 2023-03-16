@@ -25,7 +25,7 @@ public class Student {
     @Column(name = "fee")
     private Double sFee;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "student_course_tab", joinColumns = @JoinColumn(name = "sidFk"),
                     inverseJoinColumns = @JoinColumn(name = "cidFk"))
     private List<Course> courses;
