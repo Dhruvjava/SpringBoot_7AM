@@ -26,7 +26,7 @@ public class TestSaveRunner implements CommandLineRunner {
         Role r3 = new Role(103,"QA");
         Role r4 = new Role(104,"HR");
 
-        rRepo.saveAll(List.of(r1,r2,r3,r4));
+//        rRepo.saveAll(List.of(r1,r2,r3,r4));
 
         System.out.println("Roles has created successfully !!!");
 
@@ -37,7 +37,7 @@ public class TestSaveRunner implements CommandLineRunner {
         uRepo.saveAll(List.of(u1,u2,u3,u4));
         System.out.println("User has Registered with Roles !!!");
 
-//        uRepo.findAll().forEach(System.out::println);
-        uRepo.findAll();
+        uRepo.findAll().forEach(System.out::println);
+//        uRepo.findAll();
     }
 }

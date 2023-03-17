@@ -21,7 +21,7 @@ public class User {
     @Column(name = "name")
     private String uname;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles_tab", joinColumns = @JoinColumn(name = "uIdFK"),
                     inverseJoinColumns = @JoinColumn(name = "rIdFK"))
     private List<Role> roles;
