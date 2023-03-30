@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="card row">
+        <div class="card-header text-center bg-success text-white"><h2>Welcome to Employee Management</h2></div>
+        <div class="card-body">
+            <button class="btn btn-primary" onclick="window.location.href='/api/v1/emp/register'">Add</button> <br><br>
+            <table class="table table-bordered table-stripped table-hover">
+                <tr class="table-header table-warning">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Salary</th>
+                    <th>Department</th>
+                    <th>HRA</th>
+                    <th>TA</th>
+                    <th>Operations</th>
+                </tr>
+                <tr th:each="ob : ${emps}">
+                    <td><span th:text="${ob.id}"></span></td>
+                    <td><span th:text="${ob.name}"></span></td>
+                    <td><span th:text="${ob.salary}"></span></td>
+                    <td><span th:text="${ob.dept}"></span></td>
+                    <td><span th:text="${ob.hra}"></span></td>
+                    <td><span th:text="${ob.ta}"></span></td>
+                    <td>
+                        <a th:href="@{/emp/update/page(id=${ob.getId()})}" class="btn btn-success"> Edit</a> |
+                        <a th:href="@{/emp/delete(id=${ob.id})}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="card-footer bg-primary text-center text-white"><b><span th:text="${status}"></span></b></div>
+    </div>
+</div>
+</body>
+</html>

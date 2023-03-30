@@ -11,18 +11,68 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.locks.ReentrantLock;
 
 @RestController
 public class StudentController {
 
-    private final ReentrantLock lock = new ReentrantLock();
-//    private final Semaphore semaphore = new Semaphore(1);
+    //    private final Semaphore semaphore = new Semaphore(1);
+
+    final ConcurrentHashMap<Integer, ReentrantLock> keyLocks = new ConcurrentHashMap<>();
+    //    private final ReentrantLock lock = new ReentrantLock();
     @Autowired
     private IStudentRepo srepo;
-
     private FutureTask<Student> futureTask;
+
+    @PostMapping("/save")
+    public ResponseEntity<String> saveStudent(@RequestBody Student student) {
+        boolean locked = false;
+        try {
+            ReentrantLock keyLock =
+                            keyLocks.computeIfAbsent(student.getId(), key -> new ReentrantLock());
+            locked = keyLock.tryLock();
+            if (locked) {
+                if (futureTask == null || futureTask.isDone() || futureTask.isCancelled()) {
+                    Callable<Student> task = () -> srepo.save(student);
+                    futureTask = new FutureTask<>(task);
+                    new Thread(futureTask).start();
+                    Student savedStudent = futureTask.get();
+                    Integer id = savedStudent.getId();
+                    return ResponseEntity.ok("Student " + id + " saved.");
+                } else {
+                    stopThreads();
+                    return ResponseEntity.ok("Request is unable to process.");
+                }
+            } else {
+                return ResponseEntity.ok("Request is unable to process.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.ok(e.getMessage());
+        } finally {
+            if (locked) {
+                ReentrantLock keyLock = keyLocks.get(student.getId());
+                keyLock.unlock();
+                if (!keyLock.isLocked()) {
+                    keyLocks.remove(student.getId());
+                }
+            }
+        }
+    }
+
+    public void stopThreads() {
+        if (futureTask != null && !futureTask.isDone() && !futureTask.isCancelled()) {
+            futureTask.cancel(true);
+        }
+    }
+
+
+
+    @GetMapping("/student")
+    public ResponseEntity<List<Student>> getStudents() {
+        return ResponseEntity.ok(srepo.findAll());
+    }
 
     //    @PostMapping("/save")
     //    public synchronized ResponseEntity<String> saveStudent(@RequestBody Student student) {
@@ -82,48 +132,10 @@ public class StudentController {
     //    }
 
 
-//    public synchronized void stopThreads() {
-//        if (future != null && !future.isDone() && !future.isCancelled()) {
-//            future.cancel(true);
-//        }
-//    }
-
-    @PostMapping("/save")
-    public ResponseEntity<String> saveStudent(@RequestBody Student student) {
-        try {
-            if (lock.tryLock()) {
-                if (futureTask == null || futureTask.isDone() || futureTask.isCancelled()) {
-                    Callable<Student> task = () -> srepo.save(student);
-                    futureTask = new FutureTask<>(task);
-                    new Thread(futureTask).start();
-                    Student savedStudent = futureTask.get();
-                    Integer id = savedStudent.getId();
-                    return ResponseEntity.ok("Student " + id + " saved.");
-                } else {
-                    stopThreads();
-                    return ResponseEntity.ok("Request is unable to process.");
-                }
-            } else {
-                return ResponseEntity.ok("Request skipped.");
-            }
-        } catch (Exception e) {
-            return ResponseEntity.ok(e.getMessage());
-        } finally {
-            lock.unlock();
-        }
-    }
-
-    public void stopThreads() {
-        if (futureTask != null && !futureTask.isDone() && !futureTask.isCancelled()) {
-            futureTask.cancel(true);
-        }
-    }
-
-
-
-    @GetMapping("/student")
-    public ResponseEntity<List<Student>> getStudents() {
-        return ResponseEntity.ok(srepo.findAll());
-    }
+    //    public synchronized void stopThreads() {
+    //        if (future != null && !future.isDone() && !future.isCancelled()) {
+    //            future.cancel(true);
+    //        }
+    //    }
 
 }

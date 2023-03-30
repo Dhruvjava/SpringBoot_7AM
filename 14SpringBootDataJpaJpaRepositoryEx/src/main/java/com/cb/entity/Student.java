@@ -19,7 +19,7 @@ public class Student {
 //    @GeneratedValue(strategy = GenerationType.AUTO) // this one will ask to db that which pk db is support
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE) // it is generally used in Oracle type of db
 //    @GeneratedValue(strategy = GenerationType.TABLE) // it will create a temp table to store next pk val
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // MySQL (it is called auto increament)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY) // MySQL (it is called auto increament)
     private Integer id;
 
     @Column(name = "sname")
