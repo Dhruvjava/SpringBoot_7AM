@@ -3,6 +3,9 @@ package com.cb.controller;
 import com.cb.entity.Employee;
 import com.cb.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,16 +28,14 @@ public class EmployeeController {
      */
     @GetMapping("/")
     public String getHomePage(/*@ModelAttribute("model")Model status,*/
-                    Model model, @RequestParam(value = "status", required = false) String status) {
-        List<Employee> employees = service.getAllEmployees();
-        model.addAttribute("emps", employees);
+                    Model model,
+                    @RequestParam(value = "status", required = false) String status,
+                    @PageableDefault(page = 0, size = 3)Pageable pageable) {
+        Page<Employee> employees = service.getAllEmployees(pageable);
+        model.addAttribute("emps", employees.getContent());
+        model.addAttribute("page", employees);
         if (status != null) {
             model.addAttribute("status", status);
-        }
-        if (employees.size() > 0 && status == null) {
-            model.addAttribute("status", "Registered employees are retrieved.");
-        } else if (employees.size() == 0 && status == null) {
-            model.addAttribute("status", "No Employees are registered.");
         }
         return "EmployeeHome";
     }

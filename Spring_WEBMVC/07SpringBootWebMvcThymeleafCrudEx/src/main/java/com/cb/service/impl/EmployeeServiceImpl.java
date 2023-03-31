@@ -4,6 +4,8 @@ import com.cb.entity.Employee;
 import com.cb.repo.EmployeeRepo;
 import com.cb.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,5 +54,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     public List<Employee> getAllEmployees() {
         return repo.findAll();
+    }
+
+    @Override
+    public Page<Employee> getAllEmployees(Pageable pageable) {
+        Page<Employee> page = repo.findAll(pageable);
+        return page;
     }
 }

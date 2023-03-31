@@ -1,13 +1,13 @@
 package com.cb.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -35,4 +35,15 @@ public class Employee {
 
     @Column(name="dept")
     private String dept;
+
+    @Column(name="gender")
+    private String gender;
+
+    @Column(name = "address")
+    private String address;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    @Column(name = "join_date")
+    private LocalDate doj;
 }
